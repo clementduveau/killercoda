@@ -18,10 +18,6 @@
       {
         "title": "Zero code instrumentation",
         "text": "step3.md"
-      },
-      {
-        "title": "Manual instrumentation",
-        "text": "step4.md"
       }
     ],
     "finish": {

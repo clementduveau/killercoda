@@ -2,24 +2,24 @@
 
 First, we need an OpenTelemetry Collector. In this tutorial, we will use Grafana Alloy, an alternative distribution from Grafana. It has been started with your stack.
 
-Check Alloy current configuration [on port 12345]({{TRAFFIC_HOST1_12345}}). Go to Graph tab to better understand what is happening.
+Check Alloy's current configuration [on port 12345]({{TRAFFIC_HOST1_12345}}). Go to the Graph tab to better understand what is happening.
 
 ## Explanations
 
 Our Alloy has a single and simple pipeline:
-- Alloy starts a Prometheus exporter to expose metrics (about iself in this case).
-- A discovery component is used to find were is the exporter located. It also add some metadata to the metrics when scraped.
-- A scrape job to periodically get the metrics from the targets listed in the discovery component.
-- A relabel job to filter out some metrics that we don't want (more exactly keep only the one we want in this case)
-- A remote-write component to send those metrics to Prometheus.
+- Alloy starts a Prometheus exporter to expose metrics (about itself in this case)
+- A discovery component is used to find where the exporter is located. It also adds some metadata to the metrics when scraped
+- A scrape job to periodically get the metrics from the targets listed in the discovery component
+- A relabel job to filter out some metrics that we don't want (more exactly, keep only the ones we want in this case)
+- A remote-write component to send those metrics to Prometheus
 
-Alloy will be the gateway to all the signals and processing of those signals. So let's configure it to accept metrics, logs and traces through **OpenTelemetry Line Protocol** and push them to our backends.
+Alloy will be the gateway for all signals and their processing. Let's configure it to accept metrics, logs, and traces through **OpenTelemetry Line Protocol** and push them to our backends.
 
 ## Configure our OpenTelemetry pipelines
 
-Let's modify our config file at `/course/config.alloy`
+Let's modify our config file at `~/course/config.alloy`
 
-We will change the config file for the following content:
+Replace the current configuration with the following content:
 
 ```
 otelcol.receiver.otlp "default" {
@@ -96,7 +96,7 @@ otelcol.exporter.otlphttp "logs" {
 
 otelcol.exporter.otlphttp "traces" {
     client {
-        endpoint = "http://tempo/v1/traces"
+        endpoint = "http://tempo:4318"
     }
 }
 
@@ -107,38 +107,52 @@ prometheus.remote_write "metrics_service" {
 }
 ```{{copy}}
 
-You can also find it under `~/course/opentelemetry.alloy`
+You can also find this configuration under `~/course/opentelemetry.alloy`
 
 Restart Alloy to apply your changes:
 
 ```bash
 docker restart alloy
- ```{{exec}}
-```
+```{{exec}}
+
 Check that your pipelines are up in [Alloy]({{TRAFFIC_HOST1_12345}})
 
-This graph is a bit more complex. What is happening ?
-- OTLP receiver: It listens for OTLP messages (could be logs, metrics and traces)
-- Resource Detection: It enrichs data with metadata about the host itself. Like the hostname. Something the app is probably never aware of. From there, each signal follow a different path:
-    - Metrics:
-        - First, they go to a processor to get selected enrichment. We don't want to add all metadata as labels, it would impair Prometheus performance.
-        - Then they are sent to the batch processor.
-    - Logs: They are send to the batch processor directly.
-    - Traces: they are duplicated and sent to 2 components:
-        - Batch processor, to be send to the backends
-        - Host info: to generates usage metrics. Those metrics are sent to the batch processor
-- Batch processor: It groups messages together to optimize network (1 big HTTP request has less overhead than 1000 small ones). It also routes the signals to the right backends. (Logs to Loki, traces to Tempo...)
-- OTLPHTTP: Send to an OpenTelemetry-compatible API on HTTP (OTLP also supports gRPC hence the suffix `HTTP`)
-- OpenTelemetry Exporter Prometheus: Prometheus doesn't accept OTLP so we need to convert the metrics to Prometheus format with this component.
-- Remote write to send metrics to Prometheus
+## Understanding the Pipeline
 
-> Mimir is 100% compatible with Prometheus, scalable and accepts OpenTelemetry. We would not need the exporter with it.
+This graph is more complex than before. Here's what's happening:
+
+1. **OTLP Receiver**: Listens for OTLP messages (logs, metrics, and traces)
+2. **Resource Detection**: Enriches data with host metadata (e.g., hostname) that the app might not be aware of. From here, each signal follows a different path:
+   - **Metrics Pipeline**:
+     - Processor: to add metadata
+     - Then sent to batch processor
+   - **Logs Pipeline**: 
+     - Directly sent to batch processor
+   - **Traces Pipeline**: Split into two streams:
+     - Sent to batch processor for backend storage
+     - Sent to host info to generate usage metrics
+
+3. **Batch Processor**: 
+   - Groups messages to optimize network usage
+   - Routes signals to appropriate backends:
+     - Metrics → Prometheus
+     - Logs → Loki
+     - Traces → Tempo
+
+4. **Backend Communication**:
+   - OTLPHTTP: Sends data to OpenTelemetry-compatible APIs
+   - Prometheus Exporter: Converts metrics to Prometheus format
+   - Remote Write: Sends metrics to Prometheus
+
+> Note: Mimir is 100% compatible with Prometheus, scalable, and accepts OpenTelemetry natively. Using Mimir would eliminate the need for the Prometheus exporter.
 
 ## Conclusion
 
-Alloy is ready to receive telemetry data through the OpenTelemetry protocol (OTLP) on ports:
-- 4317 for gRPC
-- 4318 for HTTP/protobuf
-and it will enrich the data before forwarding it to Prometheus, Loki and Tempo.
+Alloy is now configured to:
+- Receive telemetry data via OTLP protocol on:
+  - Port 4317 (gRPC)
+  - Port 4318 (HTTP/protobuf)
+- Enrich the data with host metadata
+- Forward processed data to Prometheus, Loki, and Tempo
 
-Let's instrument our app now.
+Let's proceed to instrument our application.

@@ -72,7 +72,7 @@ otelcol.exporter.otlphttp "logs" {
 
 otelcol.exporter.otlphttp "traces" {
     client {
-        endpoint = "http://tempo:4318/v1/traces"
+        endpoint = "http://tempo:4318"
     }
 }
 
