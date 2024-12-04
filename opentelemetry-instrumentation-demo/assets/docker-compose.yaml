@@ -116,7 +116,6 @@ services:
       - "4318:4318"  # OTLP HTTP
     volumes:
       - "./config.alloy:/etc/alloy/config.alloy"
-      - "./custom-config.alloy:/etc/alloy/custom-config.alloy"
     command: [
       "run",
       "--server.http.listen-addr=0.0.0.0:12345",

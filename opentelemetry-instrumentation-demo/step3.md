@@ -13,7 +13,7 @@ Our app is called "Rolldice". It's a dummy Java app that we will instrument. It'
 1. Launch the app
 
    ```bash
-   cd /course/rolldice/
+   cd ~/course/rolldice/
    ./run.sh
    ```{{exec}}
 
@@ -73,15 +73,8 @@ Luckily, our app is in Java and can be instrumented automatically with OpenTelem
 1.  Go to your [Grafana instance]({{TRAFFIC_HOST1_3000}}).
 
 1.  From the main menu, go to **Explore**.
+   - In Explore > Metrics, look for 
+   - In Explore > Logs, you will see the log lines when a dice is rolled
+   - In Explore > Traces, you will see the requests made on _Rolldice_
 
-1.  Select the `Tempo` data source.
-
-1.  By **Query type**, click **Search**. Then, add these filters:
-
-    - In the **Service Name** dropdown, select **rolldice**.
-
-    Click **Run query**.
-
-1.  You should see OpenTelemetry traces from _rolldice_ in Grafana ! Each of the traces shown represents a request you made.
-
-You can explore more into the trace, if you're feeling curious! In the next section of the workshop, we will observe more signals.
+You can explore more into the trace, if you're feeling curious! In the next section of the workshop, we will manually create more signals.
