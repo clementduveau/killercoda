@@ -1,7 +1,12 @@
 # OpenTelemetry instrumentation
 
-This scenario installs Grafana, Tempo, Prometheus and Loki. We then going to install Alloy and OpenTelemetry components to instrument an application.
+This scenario installs Grafana, Tempo, Prometheus and Loki.
 
-The rolldice app has been developed by the Field Engineering team from Grafana Labs for the "OpenTelemetry workshops". It can be found [here](https://github.com/grafana/opentelemetry-workshop/).
+In the first steps, the user will discover the Grafana stack, and Alloy to create observability pipelines
 
-Feel free to [reach out](https://www.linkedin.com/in/duveau/) if you have any questions.
+Once done, we will instrument a dummy application named _Rolldice_ with _Zero code instrumentation_ from OpenTelemetry.
+
+Finally, we will create a manual instrumentation in the code.
+
+
+Feel free to [reach out](https://www.linkedin.com/in/duveau/) if you have any questions or find a problem.

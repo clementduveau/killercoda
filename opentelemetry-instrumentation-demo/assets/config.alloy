@@ -1,4 +1,4 @@
-import.file "hot-reload" {
+import.file "hotreload" {
     filename = "/etc/alloy/custom-config.alloy"
     detector = "fsnotify"
 }
