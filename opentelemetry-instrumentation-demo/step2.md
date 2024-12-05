@@ -17,6 +17,8 @@ Alloy will be the gateway for all signals and their processing. Let's configure 
 
 ## Configure our OpenTelemetry pipelines
 
+### Configuration file
+
 Let's modify our config file at `~/course/config.alloy`
 
 Replace the current configuration with the following content:
@@ -108,6 +110,8 @@ prometheus.remote_write "metrics_service" {
 ```{{copy}}
 
 You can also find this configuration under `~/course/opentelemetry.alloy`
+
+### Applying changes / Restart Alloy
 
 Restart Alloy to apply your changes:
 

@@ -1,3 +1,5 @@
+> We strongly encourage you to **open 2 terminal tabs**. You will use one to run the app and another to execute other commands in the tutorial.
+
 # Install the Application
 
 We'll be working with "Rolldice", a simple Java application that we'll instrument with OpenTelemetry.
@@ -17,10 +19,13 @@ We'll be working with "Rolldice", a simple Java application that we'll instrumen
    ./run.sh
    ```{{exec}}
 
-   Wait until you see the Tomcat server startup message. Then, in a new terminal, test the application:
+   Wait until you see the Tomcat server startup message. Then, in your second terminal tab, test the application:
+
    ```bash
    curl localhost:8080/rolldice
    ```{{exec}}
+
+3. Stop the application in your first terminal tab (`Ctrl + C`)
 
 The application is a simple server that returns a random number between 1 and 6 when requested.
 
@@ -60,12 +65,12 @@ Modify `run.sh` to include the OpenTelemetry Java agent. Change the last line to
 
 If you're not familiar with Java, the `-javaagent`: argument tells the Java process to attach an agent when the program starts. Agents are other Java programs which can interact and inspect the program that's running.
 
-1. Stop the current instance if it's running
-2. Start it again with `./run.sh`
+1. If you didn't stop the application, stop it now. (`Ctrl + C` in your terminal tab running the app)
+2. Start it again with `./run.sh` in your 1st terminal tab
 
-### 4. Generate Sample Data
+### 3. Generate Sample Data
 
-In a new terminal, generate some traffic:
+In the second terminal tab, generate some traffic:
 ```bash
 curl "localhost:8080/rolldice?player=Alex"
 ```{{exec}}
