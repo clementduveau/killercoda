@@ -21,95 +21,13 @@ Alloy will be the gateway for all signals and their processing. Let's configure 
 
 Let's modify our config file at `~/course/config.alloy`
 
-Replace the current configuration with the following content:
+> Killercoda includes an IDE interface. It's the first tab in the terminal window.
 
-```
-otelcol.receiver.otlp "default" {
-    // configures the default grpc endpoint "0.0.0.0:4317"
-    grpc { }
-    // configures the default http/protobuf endpoint "0.0.0.0:4318"
-    http { }
+We will replace the current configuration with another one with OpenTelemetry support. Open `~/course/opentelemetry.alloy` to 
 
-    output {
-        metrics = [otelcol.processor.resourcedetection.default.input]
-        logs    = [otelcol.processor.resourcedetection.default.input]
-        traces  = [otelcol.processor.resourcedetection.default.input]
-    }
-}
-
-otelcol.processor.resourcedetection "default" {
-    detectors = ["env", "system"] // add "gcp", "ec2", "ecs", "elastic_beanstalk", "eks", "lambda", "azure", "aks", "consul", "heroku"  if you want to use cloud resource detection
-
-    system {
-        hostname_sources = ["os"]
-    }
-
-    output {
-        metrics = [otelcol.processor.transform.add_resource_attributes_as_metric_attributes.input]
-        logs    = [otelcol.processor.batch.default.input]
-        traces  = [
-            otelcol.processor.batch.default.input,
-            otelcol.connector.host_info.default.input,
-        ]
-    }
-}
-
-otelcol.connector.host_info "default" {
-    host_identifiers = ["host.name"]
-
-    output {
-        metrics = [otelcol.processor.batch.default.input]
-    }
-}
-
-otelcol.processor.transform "add_resource_attributes_as_metric_attributes" {
-    error_mode = "ignore"
-
-    metric_statements {
-        context    = "datapoint"
-        statements = [
-            "set(attributes[\"deployment.environment\"], resource.attributes[\"deployment.environment\"])",
-            "set(attributes[\"service.version\"], resource.attributes[\"service.version\"])",
-        ]
-    }
-
-    output {
-        metrics = [otelcol.processor.batch.default.input]
-    }
-}
-
-otelcol.processor.batch "default" {
-    output {
-        metrics = [otelcol.exporter.prometheus.metrics.input]
-        logs    = [otelcol.exporter.otlphttp.logs.input]
-        traces  = [otelcol.exporter.otlphttp.traces.input]
-    }
-}
-
-otelcol.exporter.prometheus "metrics" {
-    forward_to = [prometheus.remote_write.metrics_service.receiver]
-}
-
-otelcol.exporter.otlphttp "logs" {
-    client {
-        endpoint = "http://loki:3100/otlp"
-    }
-}
-
-otelcol.exporter.otlphttp "traces" {
-    client {
-        endpoint = "http://tempo:4318"
-    }
-}
-
-prometheus.remote_write "metrics_service" {
-    endpoint {
-        url = "http://prometheus:9090/api/v1/write"
-    }
-}
-```{{copy}}
-
-You can also find this configuration under `~/course/opentelemetry.alloy`
+```bash
+mv ~/course/opentelemetry.alloy ~/course/config.alloy
+```{{exec}}
 
 ### Applying changes / Restart Alloy
 
@@ -121,7 +39,7 @@ docker restart alloy
 
 Check that your pipelines are up in [Alloy]({{TRAFFIC_HOST1_12345}})
 
-## Understanding the Pipeline
+## Understanding the pipelines
 
 This graph is more complex than before. Here's what's happening:
 

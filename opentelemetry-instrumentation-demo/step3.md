@@ -35,7 +35,7 @@ One of OpenTelemetry's powerful features is its ability to instrument Java appli
 
 ### 1. Configure Environment Variables
 
-Set up the required OpenTelemetry configuration:
+Set up the required OpenTelemetry configuration in a terminal:
 
 ```bash
 export NAMESPACE="opentelemetry-test-learning"
