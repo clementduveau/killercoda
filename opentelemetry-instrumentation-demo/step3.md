@@ -8,12 +8,7 @@ We'll be working with "Rolldice", a simple Java application that we'll instrumen
 
 ## Setup Steps
 
-1. Install Java Runtime Environment:
-   ```bash
-   apt update && apt install -y openjdk-17-jdk openjdk-17-jre
-   ```{{exec}}
-
-2. Launch the application:
+1. Launch the application:
    ```bash
    cd ~/course/rolldice/
    ./run.sh
@@ -25,7 +20,7 @@ We'll be working with "Rolldice", a simple Java application that we'll instrumen
    curl localhost:8080/rolldice
    ```{{exec}}
 
-3. Stop the application in your first terminal tab (`Ctrl + C`)
+2. Stop the application in your first terminal tab (`Ctrl + C`)
 
 The application is a simple server that returns a random number between 1 and 6 when requested.
 
