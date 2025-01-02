@@ -3,8 +3,10 @@
   "description": "Play with OpenTelemetry, the LGTM stack (Loki, Grafana, Tempo, Mimir/Prometheus) and a demo app",
   "details": {
     "intro": {
+      "title": "Intro",
       "text": "intro.md",
-      "foreground": "init.sh"
+      "foreground": "init.sh",
+      "background": "background.sh"
     },
     "steps": [
       {
@@ -21,6 +23,7 @@
       }
     ],
     "finish": {
+      "title": "Conclusion",
       "text": "finished.md"
     },
     "assets": {

@@ -63,20 +63,26 @@ If you're not familiar with Java, the `-javaagent`: argument tells the Java proc
 1. If you didn't stop the application, stop it now. (`Ctrl + C` in your terminal tab running the app)
 2. Start it again with `./run.sh` in your 1st terminal tab
 
-### 3. Generate Sample Data
+### 3. Generate Sample Data using k6
 
-In the second terminal tab, generate some traffic:
+k6 is a load-testing project. We provide a k6 script to execute.
+
+In another terminal, run the k6 load test using Docker:
 ```bash
-curl "localhost:8080/rolldice?player=Alex"
+docker run --rm -i --network=host grafana/k6:latest run - < ~/course/load-test.js
 ```{{exec}}
 
-Run this command multiple times with different player names to generate varied trace data.
+This command:
+- Launch k6 in Docker
+- Connects to the host network to access localhost
+- Execute the test script for 5min
+- Automatically cleans up the container after completion
 
-## Verify the Results
+## View the Results
 
 1. Open your [Grafana instance]({{TRAFFIC_HOST1_3000}})
 
 2.  From the main menu, go to **Explore**.
       - In Explore > Metrics: search for `jvm`. You will see some stats about the runtime.
       - In Explore > Logs: log lines when a dice is rolled
-      - In Explore > Traces: all requests made on _Rolldice_ under the Traces tab (and some stats if you give some time to Tempo to compute and store them)
+      - In Explore > Traces: all requests made on _Rolldice_ under the Traces tab
