@@ -55,10 +55,10 @@ In production, you might set this value to `http://alloy.mycompany.com:4317`, or
 
 ### 2. Enable the OpenTelemetry Agent
 
-Modify `run.sh` to include the OpenTelemetry Java agent. Change the last line to: `java -javaagent:opentelemetry-javaagent.jar -jar ./target/rolldice-0.0.1-SNAPSHOT.jar`
+Modify `run.sh` (located at `~/course/rolldice/run.sh`) to include the OpenTelemetry Java agent. Change the last line to: `java -javaagent:opentelemetry-javaagent.jar -jar ./target/rolldice-0.0.1-SNAPSHOT.jar`
 
 
-If you're not familiar with Java, the `-javaagent`: argument tells the Java process to attach an agent when the program starts. Agents are other Java programs which can interact and inspect the program that's running.
+The `-javaagent`: argument tells the Java process to attach an agent when the program starts. Agents are other Java programs which can interact and inspect the program that's running.
 
 1. If you didn't stop the application, stop it now. (`Ctrl + C` in your terminal tab running the app)
 2. Start it again with `./run.sh` in your 1st terminal tab

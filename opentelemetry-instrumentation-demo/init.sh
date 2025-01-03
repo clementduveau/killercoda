@@ -11,4 +11,4 @@ cd /root/course
 docker-compose -f docker-compose.yaml up -d
 git clone https://github.com/grafana/opentelemetry-workshop.git; mv opentelemetry-workshop/source/rolldice rolldice; rm -r opentelemetry-workshop
 
-clear; docker ps; echo "\n\n>> Environment ready!"
+clear; docker ps; echo ">> Environment ready!"

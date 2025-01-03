@@ -6,7 +6,6 @@ otelcol.receiver.otlp "default" {
     // configures the default http/protobuf endpoint "0.0.0.0:4318"
     http { }
 
-    ///
     output {
         metrics = [otelcol.processor.resourcedetection.default.input]
         logs    = [otelcol.processor.resourcedetection.default.input]
