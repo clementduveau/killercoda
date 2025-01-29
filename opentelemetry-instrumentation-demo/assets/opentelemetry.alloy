@@ -56,7 +56,7 @@ otelcol.processor.transform "add_resource_attributes_as_metric_attributes" {
 
 otelcol.processor.batch "default" {
     output {
-        metrics = [otelcol.exporter.prometheus.metrics.input]
+        metrics = [otelcol.exporter.prometheus.metrics.input, otelcol.exporter.otlphttp.metrics.input]
         logs    = [otelcol.exporter.otlphttp.logs.input]
         traces  = [otelcol.exporter.otlphttp.traces.input]
     }
@@ -64,6 +64,12 @@ otelcol.processor.batch "default" {
 
 otelcol.exporter.prometheus "metrics" {
     forward_to = [prometheus.remote_write.metrics_service.receiver]
+}
+
+otelcol.exporter.otlphttp "metrics" {
+    endpoint {
+        url = "http://mimir:9009/otlp"
+    }
 }
 
 otelcol.exporter.otlphttp "logs" {
