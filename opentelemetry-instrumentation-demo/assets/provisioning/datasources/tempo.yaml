@@ -22,9 +22,9 @@ datasources:
         customQuery: true
         query: '{$${__tags}} | trace_id=`$${__trace.traceId}`'
       tracesToMetrics:
-        datasourceUid: 'prometheus'
+        datasourceUid: 'mimir'
       serviceMap:
-        datasourceUid: 'prometheus'
+        datasourceUid: 'mimir'
       search:
         hide: false
       nodeGraph:

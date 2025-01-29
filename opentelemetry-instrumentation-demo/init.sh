@@ -2,10 +2,6 @@
 
 echo "Building instance..."
 
-# Create working directory and copy assets
-mkdir -p /root/course
-cp -r /root/assets/* /root/course/
-
 # Move to working directory and start services
 cd /root/course
 docker-compose -f docker-compose.yaml up -d

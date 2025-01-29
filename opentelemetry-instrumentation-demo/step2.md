@@ -11,7 +11,7 @@ Our Alloy has a single and simple pipeline:
 - A discovery component is used to find where the exporter is located. It also adds some metadata to the metrics when scraped
 - A scrape job to periodically get the metrics from the targets listed in the discovery component
 - A relabel job to filter out some metrics that we don't want (more exactly, keep only the ones we want in this case)
-- A remote-write component to send those metrics to Prometheus
+- A remote-write component to send those metrics to Mimir
 
 Alloy will be the gateway for all signals and their processing. Let's configure it to accept metrics, logs, and traces through **OpenTelemetry Line Protocol** and push them to our backends.
 
@@ -57,16 +57,12 @@ This graph is more complex than before. Here's what's happening:
 3. **Batch Processor**: 
    - Groups messages to optimize network usage
    - Routes signals to appropriate backends:
-     - Metrics → Prometheus
+     - Metrics → Mimir
      - Logs → Loki
      - Traces → Tempo
 
 4. **Backend Communication**:
    - OTLPHTTP: Sends data to OpenTelemetry-compatible APIs
-   - Prometheus Exporter: Converts metrics to Prometheus format
-   - Remote Write: Sends metrics to Prometheus
-
-> Note: Mimir is 100% compatible with Prometheus, scalable, and accepts OpenTelemetry natively. Using Mimir would eliminate the need for the Prometheus exporter.
 
 ## Conclusion
 
@@ -75,6 +71,6 @@ Alloy is now configured to:
   - Port 4317 (gRPC)
   - Port 4318 (HTTP/protobuf)
 - Enrich the data with host metadata
-- Forward processed data to Prometheus, Loki, and Tempo
+- Forward processed data to Mimir, Loki, and Tempo
 
 Let's proceed to instrument our application.

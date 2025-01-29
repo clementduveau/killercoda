@@ -1,6 +1,6 @@
 {
   "title": "OpenTelemetry instrumentation",
-  "description": "Play with OpenTelemetry, the LGTM stack (Loki, Grafana, Tempo, Mimir/Prometheus) and a demo app",
+  "description": "Play with OpenTelemetry, the LGTM stack (Loki, Grafana, Tempo, Mimir) and a demo app",
   "details": {
     "intro": {
       "title": "Intro",
@@ -28,8 +28,8 @@
     },
     "assets": {
       "host01": [
-        {"file": "*", "target": "/root/assets"},
-        {"file": "provisioning/**/*", "target": "/root/assets"}
+        {"file": "*", "target": "/root/course"},
+        {"file": "provisioning/**/*", "target": "/root/course"}
       ]
     }
   },

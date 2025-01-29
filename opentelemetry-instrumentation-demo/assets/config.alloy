@@ -24,18 +24,12 @@ prometheus.scrape "integrations_alloy" {
   scrape_interval = "60s"
 }
 prometheus.relabel "integrations_alloy" {
-  forward_to = [prometheus.remote_write.metrics_service.receiver, prometheus.remote_write.mimir.receiver]
+  forward_to = [prometheus.remote_write.mimir.receiver]
 
   rule {
     source_labels = ["__name__"]
     regex         = "(prometheus_target_sync_length_seconds_sum|prometheus_target_scrapes_.*|prometheus_target_interval.*|prometheus_sd_discovered_targets|alloy_build.*|prometheus_remote_write_wal_samples_appended_total|process_start_time_seconds)"
     action        = "keep"
-  }
-}
-
-prometheus.remote_write "metrics_service" {
-  endpoint {
-    url = "http://prometheus:9090/api/v1/write"
   }
 }
 
