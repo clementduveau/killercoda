@@ -23,7 +23,7 @@ Let's modify our config file at `~/course/config.alloy`
 
 > Killercoda includes an IDE interface. It's the first tab in the terminal window.
 
-We will replace the current configuration with another one with OpenTelemetry support. Open `~/course/opentelemetry.alloy` to 
+We will replace the current configuration with another one with OpenTelemetry support. Open `~/course/opentelemetry.alloy` to explore it.
 
 ```bash
 mv ~/course/opentelemetry.alloy ~/course/config.alloy

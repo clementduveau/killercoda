@@ -33,6 +33,6 @@ All services should be in a healthy state (except permission-init, don't worry a
    - Loki is configured for logs
    - Tempo is configured for traces
 
-> Mimir is 100% compatible with Prometheus, therefore is no "Mimir" datasource in Grafana and you will see the Prometheus logo next to it
+> Mimir is 100% compatible with Prometheus, there is no "Mimir" datasource in Grafana and you will see the Prometheus logo next to it
 
 For now, it's empty. Don't worry, in the next step, we'll explore how to use these tools to monitor our demo application.
