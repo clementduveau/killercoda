@@ -5,7 +5,7 @@
     "intro": {
       "title": "Intro",
       "text": "intro.md",
-      "foreground": "init.sh",
+      "foreground": "foreground.sh",
       "background": "background.sh"
     },
     "steps": [
@@ -20,6 +20,10 @@
       {
         "title": "Zero code instrumentation",
         "text": "step3.md"
+      },
+      {
+        "title": "Manual Instrumentation",
+        "text": "step4.md"
       }
     ],
     "finish": {
@@ -28,8 +32,7 @@
     },
     "assets": {
       "host01": [
-        {"file": "*", "target": "/root/course"},
-        {"file": "provisioning/**/*", "target": "/root/course"}
+        {"file": "*", "target": "/root/course"}
       ]
     }
   },
