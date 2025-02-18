@@ -1,3 +1,0 @@
-[submodule "opentelemetry-instrumentation-demo/assets/opentelemetry-workshop"]
-	path = opentelemetry-instrumentation-demo/assets/opentelemetry-workshop
-	url = https://github.com/grafana/opentelemetry-workshop.git
