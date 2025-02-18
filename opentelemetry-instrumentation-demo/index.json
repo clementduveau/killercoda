@@ -32,7 +32,7 @@
     },
     "assets": {
       "host01": [
-        {"file": "**", "target": "/root/course"}
+        {"file": "**/*", "target": "/root/course"}
       ]
     }
   },
