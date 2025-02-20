@@ -15,24 +15,70 @@ Add these dependencies to your `pom.xml` inside the `<dependencies>` section:
 <dependency>
     <groupId>io.opentelemetry</groupId>
     <artifactId>opentelemetry-api</artifactId>
-    <version>1.34.1</version>
+    <version>1.47.0</version>
 </dependency>
 <dependency>
-    <groupId>io.opentelemetry.instrumentation</groupId>
-    <artifactId>opentelemetry-spring-boot-starter</artifactId>
-    <version>2.1.0</version>
+    <groupId>io.opentelemetry</groupId>
+    <artifactId>opentelemetry-sdk</artifactId>
+    <version>1.47.0</version>
+</dependency>
+<dependency>
+    <groupId>io.opentelemetry</groupId>
+    <artifactId>opentelemetry-sdk-metrics</artifactId>
+    <version>1.47.0</version>
 </dependency>
 ```
 
 > Note: We're adding these dependencies while keeping the OpenTelemetry Java agent from the previous step. The agent provides automatic instrumentation, while these dependencies allow us to add custom metrics.
 
-## 2. Modify RolldiceController
+## 2. Create OpenTelemetry Configuration
+
+Create a new file `OpenTelemetryConfig.java` in the same directory as your controller:
+
+```java
+package com.example.rolldice;
+
+import io.opentelemetry.api.OpenTelemetry;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.metrics.Meter;
+import io.opentelemetry.sdk.OpenTelemetrySdk;
+import io.opentelemetry.sdk.metrics.SdkMeterProvider;
+import io.opentelemetry.sdk.resources.Resource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class OpenTelemetryConfig {
+
+    @Bean
+    public OpenTelemetry openTelemetry() {
+        Resource resource = Resource.getDefault();
+        
+        SdkMeterProvider meterProvider = SdkMeterProvider.builder()
+            .setResource(resource)
+            .build();
+
+        return OpenTelemetrySdk.builder()
+            .setMeterProvider(meterProvider)
+            .build();
+    }
+
+    @Bean
+    public Meter meter(OpenTelemetry openTelemetry) {
+        return openTelemetry.getMeter("dice-roller");
+    }
+}
+```
+
+## 3. Modify RolldiceController
 
 Update your `RolldiceController.java` to track dice rolls:
 
 ```java
 package com.example.rolldice;
 
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.metrics.LongCounter;
 import io.opentelemetry.api.metrics.Meter;
 import org.slf4j.Logger;
@@ -50,7 +96,6 @@ public class RolldiceController {
     private final LongCounter diceRollCounter;
 
     public RolldiceController(Meter meter) {
-        // Create a counter that tracks dice roll values
         this.diceRollCounter = meter
             .counterBuilder("dice.rolls")
             .setDescription("The number of times each value was rolled")
@@ -62,12 +107,10 @@ public class RolldiceController {
         int result = this.getRandomNumber(1, 6);
         
         // Increment the counter with the rolled value
-        diceRollCounter.add(1, 
-            io.opentelemetry.api.common.Attributes.of(
-                io.opentelemetry.api.common.AttributeKey.stringKey("value"), 
-                String.valueOf(result)
-            )
-        );
+        diceRollCounter.add(1, Attributes.of(
+            AttributeKey.stringKey("value"), 
+            String.valueOf(result)
+        ));
 
         if (player.isPresent() && !player.get().isEmpty()) {
             logger.info("Player {} is rolling the dice, result: {}", player.get(), result);
