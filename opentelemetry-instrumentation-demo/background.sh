@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Function to show progress
 show_progress() {
@@ -23,7 +23,7 @@ chmod +x ./run.sh
 
 # Download OpenTelemetry agent
 show_progress "Downloading OpenTelemetry agent..."
-version=v2.6.0-beta.2
+version=v2.13.0
 jar=opentelemetry-javaagent.jar
 curl -sL https://github.com/grafana/grafana-opentelemetry-java/releases/download/${version}/grafana-opentelemetry-java.jar -o ${jar}
 
