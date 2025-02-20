@@ -44,13 +44,13 @@ This will create environment variables that our OpenTelemetry runtime will read 
 What's happening here? We are configuring the OpenTelemetry Java agent to attach these OpenTelemetry _resource attributes_ to our signals:
 
 | Attribute | Value | Description |
-|-----------|-------|---------|
+|-----------|-------|-------------|
 | service.name | rolldice | The canonical name of our application |
-| deployment.environment | lab | The environment where the app runs (e.g., "production", "test", "development") |
+| deployment.environment | lab | Environment where the app runs (e.g., "production", "test", "development") |
 | service.instance.id | (your IDE's hostname) | Uniquely identifies this instance, useful for multi-instance deployments |
 | service.namespace | opentelemetry-test-learning | Groups related applications in the same environment |
 
-> OpenTelemetry components often use **environment variables** for configuration. The default value for  `OTEL_EXPORTER_OTLP_ENDPOINT` assumes that you want to send telemetry to an OpenTelemetry collector on `localhost`. We could omit this environment variable entirely, but we're including it explicitly here, to make it clear what's happening. 
+> OpenTelemetry components **often use environment variables** for configuration. The default value for  `OTEL_EXPORTER_OTLP_ENDPOINT` assumes that you want to send telemetry to an OpenTelemetry collector on `localhost`. We could omit this environment variable entirely, but we're including it explicitly here, to make it clear what's happening. 
 In production, you might set this value to `http://alloy.mycompany.com:4317`, or wherever your Alloy instance is located.
 
 ### 2. Enable the OpenTelemetry Agent

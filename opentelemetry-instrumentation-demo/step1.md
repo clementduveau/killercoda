@@ -1,5 +1,7 @@
 # Explore the LGTM Stack
 
+> Give some time for your stack to start. You should see the images being downloaded in the console on the right. Wait for the task to complete
+
 The LGTM (Loki, Grafana, Tempo, Mimir) stack provides a complete observability solution:
 - **Loki**: Log aggregation system
 - **Grafana**: Visualization and monitoring platform
