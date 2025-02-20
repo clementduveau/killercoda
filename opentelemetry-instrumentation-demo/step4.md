@@ -23,7 +23,7 @@ Add this dependency to your `pom.xml` inside the `<dependencies>` section:
 
 ## 2. Modify RolldiceController
 
-Update your `RolldiceController.java` to track dice rolls:
+In `/root/course/rolldice/src/main/java/com/example/rolldice/` Update your `RolldiceController.java` to track dice rolls:
 
 ```java
 package com.example.rolldice;
