@@ -107,7 +107,7 @@ services:
 
   mimir:
     container_name: mimir
-    image: grafana/mimir:2.14.3
+    image: grafana/mimir:2.15.0
     command: ["-config.file=/etc/mimir/mimir-config.yaml", "-target=all"]
     healthcheck:
       test:
