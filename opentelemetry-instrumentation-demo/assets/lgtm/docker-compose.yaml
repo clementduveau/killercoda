@@ -25,7 +25,8 @@ services:
 
   permission-init:
     container_name: permission-init
-    image: &tempoImage grafana/tempo:2.7.1
+    image: &tempoImage grafana/tempo:2.6.1
+
     user: root
     entrypoint:
       - "chown"
