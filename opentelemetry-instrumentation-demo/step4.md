@@ -132,11 +132,9 @@ The k6 load test will run for 5 minutes, simulating multiple players making dice
 4. Enter this PromQL query to see the distribution of dice rolls:
 
 ```
-sum by(value) (dice_rolls_total)
+sum by(value) (dice_rolls)
 ```
 
-This will show you how many times each value (1-6) was rolled. Note that our metric name "dice.rolls" appears as "dice_rolls_total" in Prometheus/Grafana because:
-- Dots are converted to underscores
-- Counter metrics have "_total" appended
+This will show you how many times each value (1-6) was rolled. Note that our metric name "dice.rolls" appears as "dice_rolls" in Prometheus/Grafana because dots are converted to underscores
 
 The metrics might take a minute to appear in Grafana as they are being collected and processed.
