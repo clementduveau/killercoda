@@ -23,7 +23,7 @@ Add this dependency to your `pom.xml` inside the `<dependencies>` section:
 
 ## 2. Modify RolldiceController
 
-In `/root/course/rolldice/src/main/java/com/example/rolldice/` Update your `RolldiceController.java` to track dice rolls:
+In `/root/course/rolldice/src/main/java/com/example/rolldice/`, update your `RolldiceController.java` to track dice rolls:
 
 ```java
 package com.example.rolldice;
@@ -102,11 +102,11 @@ Let's break down the key parts of the manual instrumentation:
    - Roll frequency over time (using `rate()`)
 
 
-## 3. Relaunch the app
+## 3. Relaunch the application
 
-1. Stop any instance of the app you have (`Ctrl` + `C` in the terminal running the app)
+1. Stop any instance of the application you have running (`Ctrl` + `C` in the terminal running the app)
 
-2. Rebuild and start the app:
+2. Rebuild and start the application:
 ```bash
 ./mvnw clean package -DskipTests
 ./run.sh
@@ -116,7 +116,7 @@ Wait until you see the Tomcat server startup message.
 
 ## 4. Generate some traffic
 
-Let's reuse the command from previous step to generate traffic:
+Let's reuse the command from the previous step to generate traffic:
 
 ```bash
 docker run --rm -i --network=host grafana/k6:latest run - < ~/course/load-test.js
@@ -127,7 +127,7 @@ The k6 load test will run for 5 minutes, simulating multiple players making dice
 ## 5. View the Results in Grafana
 
 1. Open [Grafana]({{TRAFFIC_HOST1_3000}})
-2. Go to Explore
+2. Go to Drilldown
 3. Select the Mimir datasource
 4. Enter this PromQL query to see the distribution of dice rolls:
 

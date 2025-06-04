@@ -10,10 +10,10 @@ Our Alloy has a single and simple pipeline:
 - Alloy starts a Prometheus exporter to expose metrics (about itself in this case)
 - A discovery component is used to find where the exporter is located. It also adds some metadata to the metrics when scraped
 - A scrape job to periodically get the metrics from the targets listed in the discovery component
-- A relabel job to filter out some metrics that we don't want (more exactly, keep only the ones we want in this case)
+- A relabel job to filter out some metrics that we don't want (more specifically, to keep only the ones we want in this case)
 - A remote-write component to send those metrics to Mimir
 
-Alloy will be the gateway for all signals and their processing. Let's configure it to accept metrics, logs, and traces through **OpenTelemetry Line Protocol** and push them to our backends.
+Alloy will be the gateway for all signals and their processing. Let's configure it to accept metrics, logs, and traces through **OpenTelemetry Protocol (OTLP)** and push them to our backends.
 
 ## Configure our OpenTelemetry pipelines
 
@@ -23,7 +23,7 @@ Let's modify our config file at `~/course/config.alloy`
 
 > Killercoda includes an IDE interface. It's the first tab in the terminal window.
 
-We will replace the current configuration with another one with OpenTelemetry support. Open `~/course/opentelemetry.alloy` to explore it.
+We will replace the current configuration with another one that has OpenTelemetry support. Open `~/course/opentelemetry.alloy` to explore it.
 
 ```bash
 mv ~/course/opentelemetry.alloy ~/course/config.alloy
