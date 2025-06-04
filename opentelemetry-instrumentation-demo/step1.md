@@ -1,6 +1,6 @@
 # Explore the LGTM Stack
 
-> Give some time for your stack to start. You should see the images being downloaded in the console on the right. Wait for the task to complete
+> Give some time for your stack to start. You should see the images being downloaded in the console on the right. Wait for the task to complete.
 
 The LGTM (Loki, Grafana, Tempo, Mimir) stack provides a complete observability solution:
 - **Loki**: Log aggregation system
@@ -11,7 +11,7 @@ The LGTM (Loki, Grafana, Tempo, Mimir) stack provides a complete observability s
 ## Starting the Stack
 
 The environment initialization script has already:
-1. Installed Docker Compose plugin
+1. Installed the Docker Compose plugin
 2. Copied the necessary configuration files
 3. Started the LGTM stack
 
@@ -35,6 +35,6 @@ All services should be in a healthy state (except permission-init, don't worry a
    - Loki is configured for logs
    - Tempo is configured for traces
 
-> Mimir is 100% compatible with Prometheus, there is no "Mimir" datasource in Grafana and you will see the Prometheus logo next to it
+> Mimir is 100% compatible with Prometheus. There is no "Mimir" datasource in Grafana, and you will see the Prometheus logo next to it.
 
 For now, it's empty. Don't worry, in the next step, we'll explore how to use these tools to monitor our demo application.
