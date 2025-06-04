@@ -30,7 +30,7 @@ All services should be in a healthy state (except permission-init, don't worry a
 
 1. Open Grafana at [http://localhost:3000]({{TRAFFIC_HOST1_3000}})
 2. You'll be automatically logged in as admin
-3. Navigate to Explore > Metrics/Logs/Traces to verify:
+3. Navigate to Drilldown > Metrics/Logs/Traces to verify:
    - Mimir is configured for metrics
    - Loki is configured for logs
    - Tempo is configured for traces
