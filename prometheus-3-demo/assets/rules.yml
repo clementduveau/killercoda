@@ -1,0 +1,5 @@
+groups:
+  - name: demo.rules
+    rules:
+      - record: job:node_load1:avg5m
+        expr: avg_over_time(node_load1[5m])
