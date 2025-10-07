@@ -4,7 +4,7 @@ The foreground script will bring up a minimal monitoring stack (Prometheus 3, no
 
 Once it's running, you will have metrics coming into Prometheus. Wait a few minutes to see more historical data.
 
-You can explore Prometheus on [port 9090]({{TRAFFIC_HOST1_9090}}) and Node Exporter on [port 9100]({{TRAFFIC_HOST1_9100}})
+You can explore Prometheus 3 on [http://localhost:9103]({{TRAFFIC_HOST1_9103}}), Prometheus 2 on [http://localhost:9102]({{TRAFFIC_HOST1_9102}}) and Node Exporter on [http://localhost:9100]({{TRAFFIC_HOST1_9100}})
 
 ## Prometheus 3 new features
 

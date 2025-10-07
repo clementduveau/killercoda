@@ -1,5 +1,5 @@
 services:
-  prometheus:
+  prometheus3:
     image: prom/prometheus:v3.6.0
     container_name: prometheus
     volumes:
@@ -9,7 +9,23 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-lifecycle'
     ports:
-      - '9090:9090'
+      - '9103:9090'
+    healthcheck:
+      test: ["CMD", "wget", "http://localhost:9090"]
+      interval: 10s
+      timeout: 3s
+      retries: 20
+
+  prometheus2:
+    image: prom/prometheus:v2.53.5
+    container_name: prometheus2
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./rules.yml:/etc/prometheus/rules.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - '9102:9090'
     healthcheck:
       test: ["CMD", "wget", "http://localhost:9090"]
       interval: 10s
